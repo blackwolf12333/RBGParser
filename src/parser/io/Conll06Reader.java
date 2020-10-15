@@ -20,6 +20,12 @@ public class Conll06Reader extends DependencyReader {
 
 	    String line = reader.readLine();
 	    while (line != null && !line.equals("") && !line.startsWith("*")) {
+			// skip comment lines and ignore conllu lines with decimal points
+			// the decimal points are not understood by this parser
+			if (line.startsWith("#") || line.split("\t")[0].contains(".")) {
+				line = reader.readLine();
+				continue;
+			}
 	    	lstLines.add(line.split("\t"));
 	    	line = reader.readLine();
 	    }
